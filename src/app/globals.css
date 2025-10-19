@@ -7,6 +7,9 @@
   --orange-600: #ea580c;
   --navy-900: #1e293b;
   --navy-800: #334155;
+  --purple-100: #f3e8ff;
+  --purple-700: #7c3aed;
+  --purple-800: #6b21a8;
 }
 
 @theme inline {
@@ -16,6 +19,9 @@
   --color-orange-600: var(--orange-600);
   --color-navy-900: var(--navy-900);
   --color-navy-800: var(--navy-800);
+  --color-purple-100: var(--purple-100);
+  --color-purple-700: var(--purple-700);
+  --color-purple-800: var(--purple-800);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

@@ -60,8 +60,8 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative pt-16 pb-12 sm:pt-20 sm:pb-16 bg-gradient-to-br from-navy-900 via-navy-800 to-orange-600 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-black opacity-20"></div>
+      <section className="relative pt-20 pb-16 sm:pt-24 sm:pb-20 bg-gradient-to-br from-purple-900 via-purple-800 to-purple-700 text-white overflow-hidden">
+        <div className="absolute inset-0 bg-black opacity-10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <motion.div

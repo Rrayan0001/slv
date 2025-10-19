@@ -16,7 +16,17 @@ export const metadata: Metadata = {
   title: "SLV Cargo Movers - Reliable Logistics Solutions",
   description: "Professional logistics and cargo moving services. Air freight, road transport, sea freight, and warehousing solutions across India.",
   viewport: "width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes",
-  themeColor: "#f97316",
+  themeColor: "#7c3aed",
+  icons: {
+    icon: [
+      { url: "/slvlogo1.png", sizes: "32x32", type: "image/png" },
+      { url: "/slvlogo1.png", sizes: "16x16", type: "image/png" }
+    ],
+    apple: [
+      { url: "/slvlogo1.png", sizes: "180x180", type: "image/png" }
+    ],
+    shortcut: "/slvlogo1.png"
+  }
 };
 
 export default function RootLayout({

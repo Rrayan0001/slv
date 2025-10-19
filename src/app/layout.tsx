@@ -15,6 +15,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "SLV Cargo Movers - Reliable Logistics Solutions",
   description: "Professional logistics and cargo moving services. Air freight, road transport, sea freight, and warehousing solutions across India.",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes",
+  themeColor: "#f97316",
 };
 
 export default function RootLayout({

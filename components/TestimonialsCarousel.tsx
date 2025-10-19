@@ -132,16 +132,16 @@ export default function TestimonialsCarousel() {
       {/* Navigation Buttons */}
       <button
         onClick={goToPrevious}
-        className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors duration-200"
+        className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-2 sm:-translate-x-4 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors duration-200 touch-manipulation"
       >
-        <ChevronLeft size={24} className="text-navy-900" />
+        <ChevronLeft size={20} className="text-navy-900 sm:w-6 sm:h-6" />
       </button>
 
       <button
         onClick={goToNext}
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors duration-200"
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-2 sm:translate-x-4 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors duration-200 touch-manipulation"
       >
-        <ChevronRight size={24} className="text-navy-900" />
+        <ChevronRight size={20} className="text-navy-900 sm:w-6 sm:h-6" />
       </button>
 
       {/* Dots Indicator */}

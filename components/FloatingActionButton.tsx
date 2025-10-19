@@ -42,7 +42,7 @@ export default function FloatingActionButton() {
   ];
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
       {/* Scroll to Top Button */}
       <AnimatePresence>
         {showScrollTop && (
@@ -51,7 +51,7 @@ export default function FloatingActionButton() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0 }}
             onClick={scrollToTop}
-            className="mb-4 w-12 h-12 bg-navy-900 hover:bg-navy-800 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl"
+            className="mb-3 sm:mb-4 w-12 h-12 bg-navy-900 hover:bg-navy-800 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl touch-manipulation"
           >
             <ArrowUp size={20} />
           </motion.button>
@@ -63,7 +63,7 @@ export default function FloatingActionButton() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-16 h-16 bg-orange-500 hover:bg-orange-600 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl"
+        className="w-14 h-14 sm:w-16 sm:h-16 bg-orange-500 hover:bg-orange-600 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl touch-manipulation"
       >
         <AnimatePresence mode="wait">
           {isOpen ? (

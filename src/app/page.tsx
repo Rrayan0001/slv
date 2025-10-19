@@ -60,21 +60,21 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative pt-20 pb-16 bg-gradient-to-br from-navy-900 via-navy-800 to-orange-600 text-white overflow-hidden">
+      <section className="relative pt-16 pb-12 sm:pt-20 sm:pb-16 bg-gradient-to-br from-navy-900 via-navy-800 to-orange-600 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black opacity-20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               className="space-y-8"
             >
-              <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold leading-tight">
                 Logistics Made
                 <span className="text-orange-500 block">Simple</span>
               </h1>
-              <p className="text-xl text-gray-300 leading-relaxed">
+              <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
                 Your trusted partner for reliable and efficient cargo solutions. 
                 We deliver excellence in every shipment with our comprehensive logistics services.
               </p>

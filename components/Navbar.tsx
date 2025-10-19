@@ -66,23 +66,23 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-gray-700"
+            className="md:hidden text-gray-700 p-2 touch-manipulation"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden mt-4 pb-4">
-            <div className="flex flex-col space-y-4">
+          <div className="md:hidden mt-4 pb-4 bg-white border-t border-gray-100">
+            <div className="flex flex-col space-y-2 pt-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-gray-700 hover:text-orange-500 font-medium transition-colors duration-200"
+                  className="text-gray-700 hover:text-orange-500 font-medium transition-colors duration-200 py-3 px-4 touch-manipulation"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
@@ -90,7 +90,7 @@ export default function Navbar() {
               ))}
               <Link
                 href="/contact"
-                className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300 text-center"
+                className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 text-center mt-4 touch-manipulation"
                 onClick={() => setIsOpen(false)}
               >
                 Get a Quote

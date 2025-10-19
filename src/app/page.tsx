@@ -56,7 +56,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      <ScrollProgress />
       <Navbar />
       
       {/* Hero Section */}

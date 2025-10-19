@@ -25,8 +25,8 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="bg-white border-b border-gray-200 py-4">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="bg-gray-900 rounded-2xl mx-4 mt-4 shadow-xl">
+      <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           {/* Logo - Large and Prominent */}
           <Link href="/" className="flex items-center">
@@ -35,28 +35,27 @@ export default function Navbar() {
               alt="SLV Cargo Movers"
               width={200}
               height={80}
-              className="h-16 sm:h-20 lg:h-24 w-auto"
+              className="h-12 sm:h-16 lg:h-20 w-auto"
               priority
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-12">
+          <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-gray-700 hover:text-purple-700 font-semibold text-lg transition-colors duration-200 relative group"
+                className="text-gray-300 hover:text-white font-medium text-base transition-all duration-300 relative group py-2 px-3 rounded-lg hover:bg-gray-800"
               >
                 {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-700 transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-gray-700 p-2 touch-manipulation"
+            className="md:hidden text-gray-300 p-2 touch-manipulation hover:text-white transition-colors duration-200"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
@@ -66,13 +65,13 @@ export default function Navbar() {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden mt-6 pb-4 bg-white border-t border-gray-100">
-            <div className="flex flex-col space-y-4 pt-4">
+          <div className="md:hidden mt-4 pb-4 border-t border-gray-700">
+            <div className="flex flex-col space-y-2 pt-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-gray-700 hover:text-purple-700 font-semibold text-lg transition-colors duration-200 py-3 px-4 touch-manipulation"
+                  className="text-gray-300 hover:text-white font-medium text-base transition-colors duration-200 py-3 px-4 rounded-lg hover:bg-gray-800 touch-manipulation"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}

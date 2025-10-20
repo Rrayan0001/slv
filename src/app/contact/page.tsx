@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Clock } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Clock, CheckCircle } from 'lucide-react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import Button from '../../../components/Button';
@@ -28,8 +28,8 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend
-    console.log('Form submitted:', formData);
+    // Formspree will handle the submission
+    // We'll show success message immediately
     setIsSubmitted(true);
     // Reset form after 3 seconds
     setTimeout(() => {
@@ -48,7 +48,7 @@ export default function Contact() {
     {
       icon: MapPin,
       title: 'Address',
-      details: ['123 Logistics Park', 'Mumbai, Maharashtra 400001', 'India']
+      details: ['Jalahalli/Jahalli area', 'Bengaluru, Karnataka 560013', 'India']
     },
     {
       icon: Phone,
@@ -84,7 +84,7 @@ export default function Contact() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="pt-20 pb-16 sm:pt-24 sm:pb-20 bg-white text-gray-900">
+      <section className="pt-24 pb-8 sm:pt-28 sm:pb-12 bg-white text-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -103,7 +103,7 @@ export default function Contact() {
       </section>
 
       {/* Contact Form & Info */}
-      <section className="py-20 bg-white">
+      <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Contact Form */}
@@ -126,7 +126,12 @@ export default function Contact() {
                   <p className="text-green-600">Your message has been sent successfully. We'll get back to you within 24 hours.</p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form 
+                  action="https://formspree.io/f/mpwyewpz" 
+                  method="POST" 
+                  onSubmit={handleSubmit} 
+                  className="space-y-6"
+                >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
@@ -264,13 +269,19 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Map Placeholder */}
-              <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
-                <div className="text-center text-gray-500">
-                  <MapPin size={48} className="mx-auto mb-2" />
-                  <p>Interactive Map</p>
-                  <p className="text-sm">Mumbai, Maharashtra</p>
-                </div>
+              {/* Interactive Google Map */}
+              <div className="rounded-lg h-64 overflow-hidden mx-auto max-w-md w-full shadow-lg">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.0418!2d77.5548!3d13.0418!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3d9b8b8b8b8b%3A0x8b8b8b8b8b8b8b8b!2sJalahalli%2C%20Bengaluru%2C%20Karnataka%20560013!5e0!3m2!1sen!2sin!4v1640000000000"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="SLV Cargo Movers Location - Jalahalli, Bengaluru"
+                  className="w-full h-full"
+                ></iframe>
               </div>
             </motion.div>
           </div>

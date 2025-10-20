@@ -1,10 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle, Truck, Plane, Ship, Users, Award, Clock } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, CheckCircle, Truck, Plane, Ship, Users, Award, Clock, Play, X } from 'lucide-react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import ServiceCard from '../../components/ServiceCard';
@@ -15,6 +15,44 @@ import AnimatedCounter from '../../components/AnimatedCounter';
 import TestimonialsCarousel from '../../components/TestimonialsCarousel';
 
 export default function Home() {
+  const [showIntro, setShowIntro] = useState(true);
+  const [hasVisited, setHasVisited] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Check if user has already seen the intro in this session
+    const seenInSession = sessionStorage.getItem('slv-intro-seen');
+    
+    if (seenInSession) {
+      // User has already seen intro in this session (navigated from another page)
+      setShowIntro(false);
+      setHasVisited(true);
+    } else {
+      // New session or page refresh - show the intro
+      setShowIntro(true);
+    }
+
+    // Handle scroll to skip intro
+    const handleScroll = () => {
+      if (showIntro && window.scrollY > 50) {
+        handleSkipIntro();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [showIntro]);
+
+  const handleSkipIntro = () => {
+    setShowIntro(false);
+    // Store in sessionStorage (clears when browser/tab closes)
+    sessionStorage.setItem('slv-intro-seen', 'true');
+    setHasVisited(true);
+  };
+
+  const handleVideoEnd = () => {
+    handleSkipIntro();
+  };
   const services = [
     {
       title: "Air Freight",
@@ -56,68 +94,129 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Full-Screen Intro Video */}
+      <AnimatePresence>
+        {showIntro && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed inset-0 z-[9999] bg-black flex items-center justify-center"
+          >
+            {/* Video Container */}
+            <div className="relative w-full h-full flex items-center justify-center">
+              <video
+                ref={videoRef}
+                autoPlay
+                muted
+                playsInline
+                onEnded={handleVideoEnd}
+                className="w-full h-full object-contain"
+              >
+                <source src="/intro-video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+
+              {/* Skip Button */}
+              <motion.button
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1, duration: 0.5 }}
+                onClick={handleSkipIntro}
+                className="absolute top-8 right-8 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-full flex items-center gap-2 transition-all duration-300 group border border-white/20"
+              >
+                <span className="text-sm font-medium">Skip</span>
+                <X size={18} className="group-hover:rotate-90 transition-transform duration-300" />
+              </motion.button>
+
+              {/* Scroll hint */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 2, duration: 0.5 }}
+                className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 text-sm text-center"
+              >
+                <p>Scroll down to skip</p>
+                <motion.div
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5 }}
+                  className="mt-2"
+                >
+                  ↓
+                </motion.div>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative pt-20 pb-16 sm:pt-24 sm:pb-20 bg-gradient-to-br from-purple-900 via-purple-800 to-purple-700 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-black opacity-10"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <section className="relative pt-24 pb-16 sm:pt-28 sm:pb-20 bg-white overflow-hidden min-h-screen flex items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left Content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               className="space-y-8"
             >
-              <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold leading-tight">
-                Logistics Made
-                <span className="text-orange-500 block">Simple</span>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-gray-900">
+                Reliable Logistics
+                <span className="block">Solutions</span>
               </h1>
-              <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
-                Your trusted partner for reliable and efficient cargo solutions. 
-                We deliver excellence in every shipment with our comprehensive logistics services.
+              
+              <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
+                Starting a new logistics business or keen to become the #1 cargo mover in your area? 
+                Struggling to show up on Google or get enquiries? We're here to help.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button href="/contact" variant="primary" className="text-lg px-8 py-4">
-                  Get Free Quote
-                  <ArrowRight className="ml-2" size={20} />
+
+              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+                We design and build logistics solutions that do the job properly – no DIY, and no BS! 
+                Whether you're just getting started or looking to take things up a notch, our cargo 
+                services and tracking packages help you get found online, win trust, and book more business.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Button href="/contact" variant="primary" className="text-base px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white">
+                  Get a free quote
                 </Button>
-                <Button href="/services" variant="outline" className="text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-navy-900">
-                  Our Services
+                <Button href="/services" variant="outline" className="text-base px-8 py-4 border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white">
+                  See our services
                 </Button>
               </div>
+
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <span>Rated</span>
+                <div className="flex text-yellow-400">
+                  {'⭐'.repeat(5)}
+                </div>
+                <span className="font-semibold">5 stars</span>
+                <span>by trusted customers</span>
+              </div>
             </motion.div>
-            
+
+            {/* Right Content - Phone Mockup */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
+              className="relative flex justify-center lg:justify-end"
             >
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                <div className="grid grid-cols-2 gap-6">
-                  {stats.slice(0, 4).map((stat, index) => (
-                    <motion.div 
-                      key={index} 
-                      className="text-center"
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                      <div className="text-3xl font-bold text-orange-500">
-                        <AnimatedCounter 
-                          value={stat.value} 
-                          suffix={stat.suffix}
-                          className="text-3xl font-bold text-orange-500"
-                        />
-                      </div>
-                      <div className="text-sm text-gray-300 mt-1">
-                        {stat.label}
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
+              <div className="relative w-full max-w-xl">
+                <Image
+                  src="/final.png"
+                  alt="SLV Cargo Tracking on Mobile"
+                  width={700}
+                  height={1400}
+                  className="w-full h-auto"
+                  priority
+                />
+                {/* Subtle overlay to help blend watermark */}
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-white/10 pointer-events-none"></div>
               </div>
             </motion.div>
           </div>

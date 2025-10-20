@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -15,8 +15,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "SLV Cargo Movers - Reliable Logistics Solutions",
   description: "Professional logistics and cargo moving services. Air freight, road transport, sea freight, and warehousing solutions across India.",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes",
-  themeColor: "#7c3aed",
   icons: {
     icon: [
       { url: "/slvlogo1.png", sizes: "32x32", type: "image/png" },
@@ -27,6 +25,14 @@ export const metadata: Metadata = {
     ],
     shortcut: "/slvlogo1.png"
   }
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: "#7c3aed"
 };
 
 export default function RootLayout({

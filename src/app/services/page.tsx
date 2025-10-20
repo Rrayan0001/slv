@@ -124,7 +124,7 @@ export default function Services() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="pt-20 pb-16 bg-gradient-to-br from-navy-900 to-navy-800 text-white">
+      <section className="pt-24 pb-16 sm:pt-28 sm:pb-20 bg-gradient-to-br from-navy-900 to-navy-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -161,7 +161,7 @@ export default function Services() {
             </p>
           </motion.div>
 
-          <div className="space-y-16">
+          <div className="space-y-20">
             {services.map((service, index) => (
               <motion.div
                 key={index}
@@ -169,11 +169,9 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
-                  index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
-                }`}
+                className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start"
               >
-                <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
+                <div className="order-1">
                   <ServiceCard
                     title={service.title}
                     description={service.description}
@@ -181,23 +179,23 @@ export default function Services() {
                   />
                 </div>
                 
-                <div className={`${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
-                  <div className="space-y-6">
-                    <div className="inline-block bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                <div className="order-2">
+                  <div className="space-y-8">
+                    <div className="inline-block bg-orange-500 text-white px-6 py-3 rounded-full text-base font-semibold">
                       {service.pricing}
                     </div>
-                    <h3 className="text-2xl font-bold text-navy-900">Service Features</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <h3 className="text-3xl font-bold text-navy-900">Service Features</h3>
+                    <div className="space-y-4">
                       {service.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-center space-x-3">
-                          <CheckCircle className="text-orange-500 flex-shrink-0" size={18} />
-                          <span className="text-gray-700">{feature}</span>
+                        <div key={featureIndex} className="flex items-start space-x-4">
+                          <CheckCircle className="text-orange-500 flex-shrink-0 mt-1" size={20} />
+                          <span className="text-gray-700 text-lg leading-relaxed">{feature}</span>
                         </div>
                       ))}
                     </div>
-                    <Button href="/contact" variant="primary" className="mt-6">
+                    <Button href="/contact" variant="primary" className="mt-8 text-lg px-8 py-4">
                       Get Quote
-                      <ArrowRight className="ml-2" size={16} />
+                      <ArrowRight className="ml-2" size={18} />
                     </Button>
                   </div>
                 </div>

@@ -14,6 +14,7 @@ import FloatingActionButton from '../../components/FloatingActionButton';
 import AnimatedCounter from '../../components/AnimatedCounter';
 import TestimonialsCarousel from '../../components/TestimonialsCarousel';
 import RippleBackground from '../../components/RippleBackground';
+import { Cover } from '../../components/Cover';
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
@@ -167,7 +168,7 @@ export default function Home() {
               className="space-y-3 sm:space-y-6 lg:space-y-8"
             >
               <h1 className="text-[28px] leading-[1.15] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900">
-                Fast & Reliable
+                <Cover>Fast & Reliable</Cover>
                 <span className="block">Logistics Solutions</span>
               </h1>
               

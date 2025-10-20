@@ -151,3 +151,17 @@ body {
   transform: perspective(1000px) rotateX(-8deg) rotateY(8deg) translateZ(50px);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
+
+/* Cover Effect Animation */
+@keyframes cover-glow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.cover-effect {
+  animation: cover-glow 2s ease-in-out infinite;
+}

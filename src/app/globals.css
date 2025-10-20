@@ -116,3 +116,19 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--orange-600);
 }
+
+/* 3D Perspective and Transform Effects */
+.perspective {
+  perspective: 1000px;
+}
+
+/* Smooth 3D hover effect for images */
+.transform-3d-image {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.transform-3d-image:hover {
+  transform: perspective(1000px) rotateX(-8deg) rotateY(8deg) translateZ(50px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}

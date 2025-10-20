@@ -80,7 +80,7 @@ export default function TestimonialsCarousel() {
   };
 
   return (
-    <div className="relative max-w-4xl mx-auto">
+    <div className="relative max-w-5xl mx-auto px-4">
       <div 
         className="relative overflow-hidden"
         onMouseEnter={() => setIsAutoPlaying(false)}
@@ -89,75 +89,112 @@ export default function TestimonialsCarousel() {
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0, x: 300 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -300 }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            transition={{ duration: 0.6, ease: 'easeInOut' }}
             className="text-center"
           >
-            <div className="bg-white rounded-2xl shadow-xl p-8 mx-4">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 p-8 sm:p-12 mx-0 border border-gray-100">
               {/* Rating Stars */}
-              <div className="flex justify-center mb-6">
+              <motion.div 
+                className="flex justify-center mb-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
                 {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                  <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
+                  <motion.div
+                    key={i}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.1 + i * 0.05 }}
+                  >
+                    <Star className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400 fill-current" />
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
 
               {/* Testimonial Content */}
-              <blockquote className="text-lg text-gray-700 mb-8 italic leading-relaxed">
+              <motion.blockquote 
+                className="text-base sm:text-lg lg:text-xl text-gray-700 mb-8 sm:mb-10 italic leading-relaxed font-light"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
                 "{testimonials[currentIndex].content}"
-              </blockquote>
+              </motion.blockquote>
 
               {/* Author Info */}
-              <div className="flex items-center justify-center space-x-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">
+              <motion.div 
+                className="flex flex-col sm:flex-row items-center justify-center sm:space-x-6 space-y-4 sm:space-y-0"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <motion.div 
+                  className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center shadow-lg"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <span className="text-white font-bold text-2xl sm:text-3xl">
                     {testimonials[currentIndex].name.charAt(0)}
                   </span>
-                </div>
-                <div className="text-left">
-                  <h4 className="text-xl font-semibold text-navy-900">
+                </motion.div>
+                <div className="text-center sm:text-left">
+                  <h4 className="text-lg sm:text-xl font-semibold text-navy-900">
                     {testimonials[currentIndex].name}
                   </h4>
-                  <p className="text-gray-600">
+                  <p className="text-sm sm:text-base text-gray-600 font-medium">
                     {testimonials[currentIndex].company}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         </AnimatePresence>
       </div>
 
       {/* Navigation Buttons */}
-      <button
+      <motion.button
         onClick={goToPrevious}
-        className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-2 sm:-translate-x-4 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors duration-200 touch-manipulation"
+        className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 sm:-translate-x-6 w-10 h-10 sm:w-14 sm:h-14 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 touch-manipulation group"
+        whileHover={{ scale: 1.15 }}
+        whileTap={{ scale: 0.95 }}
       >
-        <ChevronLeft size={20} className="text-navy-900 sm:w-6 sm:h-6" />
-      </button>
+        <ChevronLeft size={24} className="text-navy-900 group-hover:text-white transition-colors" />
+      </motion.button>
 
-      <button
+      <motion.button
         onClick={goToNext}
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-2 sm:translate-x-4 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors duration-200 touch-manipulation"
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 sm:translate-x-6 w-10 h-10 sm:w-14 sm:h-14 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 touch-manipulation group"
+        whileHover={{ scale: 1.15 }}
+        whileTap={{ scale: 0.95 }}
       >
-        <ChevronRight size={20} className="text-navy-900 sm:w-6 sm:h-6" />
-      </button>
+        <ChevronRight size={24} className="text-navy-900 group-hover:text-white transition-colors" />
+      </motion.button>
 
       {/* Dots Indicator */}
-      <div className="flex justify-center space-x-2 mt-8">
+      <motion.div 
+        className="flex justify-center space-x-3 mt-10 sm:mt-12"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+      >
         {testimonials.map((_, index) => (
-          <button
+          <motion.button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            className={`rounded-full transition-all duration-300 ${
               index === currentIndex 
-                ? 'bg-orange-500 w-8' 
-                : 'bg-gray-300 hover:bg-gray-400'
+                ? 'bg-orange-500 w-8 h-3 shadow-lg' 
+                : 'bg-gray-300 hover:bg-gray-400 w-3 h-3'
             }`}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
           />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }

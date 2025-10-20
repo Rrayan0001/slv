@@ -7,6 +7,7 @@ import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import ServiceCard from '../../../components/ServiceCard';
 import Button from '../../../components/Button';
+import RippleBackground from '../../../components/RippleBackground';
 
 export default function Services() {
   const services = [
@@ -315,6 +316,7 @@ export default function Services() {
       </section>
 
       <Footer />
+      <RippleBackground />
     </div>
   );
 }

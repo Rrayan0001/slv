@@ -13,6 +13,7 @@ import ScrollProgress from '../../components/ScrollProgress';
 import FloatingActionButton from '../../components/FloatingActionButton';
 import AnimatedCounter from '../../components/AnimatedCounter';
 import TestimonialsCarousel from '../../components/TestimonialsCarousel';
+import RippleBackground from '../../components/RippleBackground';
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
@@ -207,17 +208,32 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative flex justify-center lg:justify-end -mb-4"
             >
-              <div className="relative w-full max-w-[240px] sm:max-w-md lg:max-w-lg">
+              <motion.div
+                className="relative w-full max-w-[240px] sm:max-w-md lg:max-w-lg perspective"
+                whileHover={{
+                  rotateX: -8,
+                  rotateY: 8,
+                  scale: 1.05,
+                  z: 50
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                style={{
+                  transformStyle: "preserve-3d",
+                  perspective: "1000px"
+                }}
+              >
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300">
         <Image
-                  src="/final.png"
-                  alt="SLV Logistics on Mobile"
-                  width={700}
-                  height={1400}
-                  className="w-full h-auto object-contain"
+                    src="/final.png"
+                    alt="SLV Logistics on Mobile"
+                    width={700}
+                    height={1400}
+                    className="w-full h-auto object-contain"
           priority
-                  sizes="(max-width: 640px) 240px, (max-width: 1024px) 50vw, 40vw"
-                />
-              </div>
+                    sizes="(max-width: 640px) 240px, (max-width: 1024px) 50vw, 40vw"
+                  />
+                </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -398,6 +414,7 @@ export default function Home() {
 
       <Footer />
       <FloatingActionButton />
+      <RippleBackground />
     </div>
   );
 }

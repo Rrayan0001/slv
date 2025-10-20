@@ -7,6 +7,7 @@ import { Target, Users, Award, TrendingUp, CheckCircle, Truck } from 'lucide-rea
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import Button from '../../../components/Button';
+import RippleBackground from '../../../components/RippleBackground';
 
 export default function About() {
   const milestones = [
@@ -307,6 +308,7 @@ export default function About() {
       </section>
 
       <Footer />
+      <RippleBackground />
     </div>
   );
 }

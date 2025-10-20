@@ -2,10 +2,11 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import Button from '../../../components/Button';
+import RippleBackground from '../../../components/RippleBackground';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -331,6 +332,7 @@ export default function Contact() {
       </section>
 
       <Footer />
+      <RippleBackground />
     </div>
   );
 }

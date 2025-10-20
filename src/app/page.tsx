@@ -118,26 +118,27 @@ export default function Home() {
                 Your browser does not support the video tag.
               </video>
 
-              {/* Skip Button */}
+              {/* Skip Button - Mobile Optimized */}
               <motion.button
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
                 onClick={handleSkipIntro}
-                className="absolute top-8 right-8 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-full flex items-center gap-2 transition-all duration-300 group border border-white/20"
+                className="absolute top-4 right-4 sm:top-8 sm:right-8 bg-white/10 hover:bg-white/20 active:bg-white/30 backdrop-blur-sm text-white px-4 py-2 sm:px-6 sm:py-3 rounded-full flex items-center gap-2 transition-all duration-300 group border border-white/20 touch-manipulation min-h-[44px] min-w-[44px]"
               >
-                <span className="text-sm font-medium">Skip</span>
-                <X size={18} className="group-hover:rotate-90 transition-transform duration-300" />
+                <span className="text-xs sm:text-sm font-medium">Skip</span>
+                <X size={16} className="sm:w-[18px] sm:h-[18px] group-hover:rotate-90 transition-transform duration-300" />
               </motion.button>
 
-              {/* Scroll hint */}
+              {/* Scroll hint - Mobile Optimized */}
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 2, duration: 0.5 }}
-                className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 text-sm text-center"
+                className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 text-xs sm:text-sm text-center"
               >
-                <p>Scroll down to skip</p>
+                <p className="hidden sm:block">Scroll down to skip</p>
+                <p className="block sm:hidden">Swipe up to skip</p>
                 <motion.div
                   animate={{ y: [0, 10, 0] }}
                   transition={{ repeat: Infinity, duration: 1.5 }}
@@ -154,48 +155,48 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative pt-24 pb-16 sm:pt-28 sm:pb-20 bg-white overflow-hidden min-h-screen flex items-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <section className="relative pt-16 pb-4 sm:pt-28 sm:pb-20 bg-white overflow-hidden flex items-start sm:items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-4 sm:py-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start sm:items-center">
             {/* Left Content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="space-y-8"
+              className="space-y-3 sm:space-y-6 lg:space-y-8 order-last lg:order-first"
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-gray-900">
-                Reliable Logistics
-                <span className="block">Solutions</span>
+              <h1 className="text-[28px] leading-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900">
+                Websites for
+                <span className="block">scaffolders</span>
               </h1>
               
-              <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
-                Starting a new logistics business or keen to become the #1 cargo mover in your area? 
+              <p className="text-[13px] sm:text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed">
+                Starting a new scaffolding business or keen to become the #1 scaffolder in your area? 
                 Struggling to show up on Google or get enquiries? We're here to help.
               </p>
 
-              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-                We design and build logistics solutions that do the job properly – no DIY, and no BS! 
-                Whether you're just getting started or looking to take things up a notch, our cargo 
-                services and tracking packages help you get found online, win trust, and book more business.
+              <p className="text-[12px] sm:text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed">
+                We design and build websites for scaffolders that do the job properly – no DIY, and no BS! 
+                Whether you're just getting started or looking to take things up a notch, our scaffolding 
+                web design and SEO packages help you get found online, win trust, and book more work.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button href="/contact" variant="primary" className="text-base px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 lg:gap-4 pt-1 sm:pt-4">
+                <Button href="/contact" variant="primary" className="text-[13px] sm:text-base px-6 py-2.5 sm:px-8 sm:py-4 bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white touch-manipulation w-full sm:w-auto rounded-lg">
                   Get a free quote
                 </Button>
-                <Button href="/services" variant="outline" className="text-base px-8 py-4 border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white">
-                  See our services
+                <Button href="/services" variant="outline" className="text-[13px] sm:text-base px-6 py-2.5 sm:px-8 sm:py-4 border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white active:bg-gray-800 touch-manipulation w-full sm:w-auto rounded-lg">
+                  See our packages
                 </Button>
               </div>
 
-              <div className="flex items-center gap-2 text-sm text-gray-600">
+              <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm text-gray-600">
                 <span>Rated</span>
-                <div className="flex text-yellow-400">
+                <div className="flex text-yellow-400 text-xs sm:text-base">
                   {'⭐'.repeat(5)}
                 </div>
                 <span className="font-semibold">5 stars</span>
-                <span>by trusted customers</span>
+                <span className="hidden sm:inline">by trusted tradesmen</span>
               </div>
             </motion.div>
 
@@ -204,19 +205,18 @@ export default function Home() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative flex justify-center lg:justify-end"
+              className="relative flex justify-center lg:justify-end order-first lg:order-last"
             >
-              <div className="relative w-full max-w-xl">
+              <div className="relative w-full max-w-[260px] sm:max-w-md lg:max-w-lg">
                 <Image
                   src="/final.png"
-                  alt="SLV Cargo Tracking on Mobile"
+                  alt="SLV Logistics on Mobile"
                   width={700}
                   height={1400}
-                  className="w-full h-auto"
+                  className="w-full h-auto object-contain"
                   priority
+                  sizes="(max-width: 640px) 260px, (max-width: 1024px) 50vw, 40vw"
                 />
-                {/* Subtle overlay to help blend watermark */}
-                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-white/10 pointer-events-none"></div>
               </div>
             </motion.div>
           </div>

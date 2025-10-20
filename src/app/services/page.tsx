@@ -121,11 +121,11 @@ export default function Services() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden w-full">
       <Navbar />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 sm:pt-28 sm:pb-20 bg-gradient-to-br from-navy-900 to-navy-800 text-white">
+      <section className="pt-20 pb-16 sm:pt-24 sm:pb-20 bg-white text-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -136,7 +136,7 @@ export default function Services() {
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               Our <span className="text-orange-500">Services</span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Comprehensive logistics solutions designed to meet your business needs. 
               From air freight to warehousing, we provide end-to-end cargo solutions.
             </p>

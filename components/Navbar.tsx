@@ -15,19 +15,37 @@ const navLinks: NavLink[] = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
 
   useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout;
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+      setIsScrolling(true);
+
+      // Clear existing timeout
+      clearTimeout(scrollTimeout);
+
+      // Set navbar back to opaque after scrolling stops (300ms delay)
+      scrollTimeout = setTimeout(() => {
+        setIsScrolling(false);
+      }, 300);
     };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(scrollTimeout);
+    };
   }, []);
 
   return (
-    <div className="fixed top-2 sm:top-6 left-0 right-0 z-50 px-3 sm:px-8">
-      <nav className="bg-black rounded-lg sm:rounded-3xl shadow-2xl mx-auto max-w-7xl">
-        <div className="px-3 py-1.5 sm:px-10 sm:py-4 flex justify-between items-center">
+    <div className="fixed top-2 sm:top-6 left-0 right-0 z-50 px-2 sm:px-8">
+      <nav className={`rounded-lg sm:rounded-3xl shadow-2xl mx-auto max-w-7xl transition-all duration-300 ${
+        isScrolling ? 'bg-black/30 backdrop-blur-md' : 'bg-black'
+      }`}>
+        <div className="px-2 py-1 sm:px-10 sm:py-4 flex justify-between items-center">
           {/* Logo - Mobile Optimized */}
           <Link href="/" className="flex items-center touch-manipulation">
             <Image
@@ -35,9 +53,9 @@ export default function Navbar() {
               alt="SLV Cargo Movers"
               width={140}
               height={35}
-              className="h-5 sm:h-9 md:h-10 w-auto"
+              className="h-3.5 sm:h-9 md:h-10 w-auto rounded-md sm:rounded-none"
               priority
-              sizes="(max-width: 640px) 90px, 140px"
+              sizes="(max-width: 640px) 70px, 140px"
             />
           </Link>
 
@@ -56,12 +74,12 @@ export default function Navbar() {
 
           {/* Mobile Menu Button - Enhanced touch target */}
           <button
-            className="md:hidden text-white p-1.5 touch-manipulation hover:text-orange-400 active:text-orange-500 transition-colors duration-200 min-w-[36px] min-h-[36px] flex items-center justify-center"
+            className="md:hidden text-white p-1 touch-manipulation hover:text-orange-400 active:text-orange-500 transition-colors duration-200 min-w-[32px] min-h-[32px] flex items-center justify-center"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
             aria-expanded={isOpen}
           >
-            {isOpen ? <X size={18} /> : <Menu size={18} />}
+            {isOpen ? <X size={16} /> : <Menu size={16} />}
           </button>
         </div>
 

@@ -94,7 +94,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden w-full">
       {/* Full-Screen Intro Video */}
       <AnimatePresence>
         {showIntro && (
@@ -156,8 +156,8 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative pt-28 pb-4 sm:pt-32 sm:pb-20 bg-white overflow-hidden flex items-start sm:items-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-4 sm:py-0">
+      <section className="relative pt-20 pb-4 sm:pt-24 sm:pb-20 bg-white overflow-hidden flex items-start sm:items-center w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-4 sm:py-0 box-border">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start sm:items-center">
             {/* Left Content */}
             <motion.div
@@ -167,19 +167,19 @@ export default function Home() {
               className="space-y-3 sm:space-y-6 lg:space-y-8"
             >
               <h1 className="text-[28px] leading-[1.15] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900">
-                Websites for
-                <span className="block">scaffolders</span>
+                Fast & Reliable
+                <span className="block">Logistics Solutions</span>
               </h1>
               
               <p className="text-[13px] sm:text-base md:text-lg lg:text-xl text-gray-600 leading-[1.5]">
-                Starting a new scaffolding business or keen to become the #1 scaffolder in your area? 
-                Struggling to show up on Google or get enquiries? We're here to help.
+                Your trusted partner for seamless cargo transportation across India. 
+                From air freight to warehousing, we deliver excellence with every shipment.
               </p>
 
               <p className="text-[12px] sm:text-sm md:text-base lg:text-lg text-gray-600 leading-[1.5]">
-                We design and build websites for scaffolders that do the job properly – no DIY, and no BS! 
-                Whether you're just getting started or looking to take things up a notch, our scaffolding 
-                web design and SEO packages help you get found online, win trust, and book more work.
+                With over 5 years of experience in logistics, SLV Cargo Movers provides comprehensive 
+                transportation solutions. Whether you need same-day delivery or international shipping, 
+                our expert team ensures your cargo reaches its destination safely and on time.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 lg:gap-4 pt-1 sm:pt-4">
@@ -209,7 +209,7 @@ export default function Home() {
               className="relative flex justify-center lg:justify-end -mb-4"
             >
               <motion.div
-                className="relative w-full max-w-[240px] sm:max-w-md lg:max-w-lg perspective"
+                className="relative w-full max-w-[100px] sm:max-w-[190px] lg:max-w-[190px] xl:max-w-[230px] perspective"
                 whileHover={{
                   rotateX: -8,
                   rotateY: 8,
@@ -378,11 +378,10 @@ export default function Home() {
               India's most reliable logistics partner.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/contact" variant="primary" className="text-lg px-8 py-4">
+              <Button href="/contact" variant="primary" className="text-base px-8 py-3 bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300">
                 Get Free Quote
               </Button>
-              <Button href="tel:+919876543210" variant="outline" className="text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-navy-900">
-                <Clock className="mr-2" size={20} />
+              <Button href="tel:+919876543210" variant="outline" className="text-base px-8 py-3 border-2 border-white text-white hover:bg-white/10 hover:border-white active:bg-white/20 font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300">
                 Call Now
               </Button>
             </div>

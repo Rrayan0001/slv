@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Clock } from 'lucide-react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import Button from '../../../components/Button';
@@ -80,11 +80,11 @@ export default function Contact() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden w-full">
       <Navbar />
       
       {/* Hero Section */}
-      <section className="pt-20 pb-16 bg-gradient-to-br from-navy-900 to-navy-800 text-white">
+      <section className="pt-20 pb-16 sm:pt-24 sm:pb-20 bg-white text-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -95,7 +95,7 @@ export default function Contact() {
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               Contact <span className="text-orange-500">Us</span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Get in touch with our logistics experts. We're here to help you with all your cargo transportation needs.
             </p>
           </motion.div>
@@ -219,9 +219,12 @@ export default function Contact() {
                     />
                   </div>
 
-                  <Button type="submit" variant="primary" className="w-full text-lg py-4">
-                    <Send className="mr-2" size={20} />
-                    Send Message
+                  <Button 
+                    type="submit" 
+                    variant="primary" 
+                    className="w-full text-base py-3 bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center"
+                  >
+                    Get a free quote
                   </Button>
                 </form>
               )}

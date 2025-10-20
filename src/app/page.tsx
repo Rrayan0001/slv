@@ -155,7 +155,7 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative pt-16 pb-4 sm:pt-28 sm:pb-20 bg-white overflow-hidden flex items-start sm:items-center">
+      <section className="relative pt-28 pb-4 sm:pt-32 sm:pb-20 bg-white overflow-hidden flex items-start sm:items-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-4 sm:py-0">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start sm:items-center">
             {/* Left Content */}
@@ -163,19 +163,19 @@ export default function Home() {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="space-y-3 sm:space-y-6 lg:space-y-8 order-last lg:order-first"
+              className="space-y-3 sm:space-y-6 lg:space-y-8"
             >
-              <h1 className="text-[28px] leading-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900">
+              <h1 className="text-[28px] leading-[1.15] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900">
                 Websites for
                 <span className="block">scaffolders</span>
               </h1>
               
-              <p className="text-[13px] sm:text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed">
+              <p className="text-[13px] sm:text-base md:text-lg lg:text-xl text-gray-600 leading-[1.5]">
                 Starting a new scaffolding business or keen to become the #1 scaffolder in your area? 
                 Struggling to show up on Google or get enquiries? We're here to help.
               </p>
 
-              <p className="text-[12px] sm:text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed">
+              <p className="text-[12px] sm:text-sm md:text-base lg:text-lg text-gray-600 leading-[1.5]">
                 We design and build websites for scaffolders that do the job properly – no DIY, and no BS! 
                 Whether you're just getting started or looking to take things up a notch, our scaffolding 
                 web design and SEO packages help you get found online, win trust, and book more work.
@@ -205,17 +205,17 @@ export default function Home() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative flex justify-center lg:justify-end order-first lg:order-last"
+              className="relative flex justify-center lg:justify-end -mb-4"
             >
-              <div className="relative w-full max-w-[260px] sm:max-w-md lg:max-w-lg">
-                <Image
+              <div className="relative w-full max-w-[240px] sm:max-w-md lg:max-w-lg">
+        <Image
                   src="/final.png"
                   alt="SLV Logistics on Mobile"
                   width={700}
                   height={1400}
                   className="w-full h-auto object-contain"
-                  priority
-                  sizes="(max-width: 640px) 260px, (max-width: 1024px) 50vw, 40vw"
+          priority
+                  sizes="(max-width: 640px) 240px, (max-width: 1024px) 50vw, 40vw"
                 />
               </div>
             </motion.div>

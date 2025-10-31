@@ -1,13 +1,15 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Package, Truck, ArrowRight, CheckCircle, MapPin, FileText, Calendar, Route, Shield, Phone, MessageCircle, Mail, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import ServiceCard from '../../../components/ServiceCard';
 import Button from '../../../components/Button';
-import RippleBackground from '../../../components/RippleBackground';
+
+// Lazy load heavy components
+const RippleBackground = lazy(() => import('../../../components/RippleBackground'));
 
 export default function Services() {
   const [activeStep, setActiveStep] = useState<number | null>(null);
@@ -184,7 +186,7 @@ export default function Services() {
               From logistics and cargo moving to packing and end-to-end delivery – we provide comprehensive cargo solutions tailored to your needs.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button href="#quote" variant="primary" className="text-lg px-8 py-4 bg-[var(--orange-500)] hover:bg-[var(--orange-600)] text-white shadow-xl">
+              <Button href="/contact" variant="primary" className="text-lg px-8 py-4 bg-[var(--orange-500)] hover:bg-[var(--orange-600)] text-white shadow-xl">
                 Get Instant Quote
                 <ArrowRight className="ml-2 inline" size={20} />
               </Button>
@@ -196,85 +198,6 @@ export default function Services() {
           </motion.div>
         </div>
       </section>
-
-      {/* Collapsible Sticky Sidebar CTA */}
-      <div ref={sidebarRef} className="hidden lg:block fixed right-4 top-1/2 transform -translate-y-1/2 z-40">
-        <AnimatePresence mode="wait">
-          {!isSidebarExpanded ? (
-            // Minimized Button
-            <motion.button
-              key="minimized"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              onClick={() => setIsSidebarExpanded(true)}
-              className="bg-[var(--orange-500)] hover:bg-[var(--orange-600)] text-white rounded-full shadow-2xl p-4 transition-all duration-300 hover:shadow-3xl"
-              aria-label="Open quote sidebar"
-            >
-              <MessageCircle size={24} />
-            </motion.button>
-          ) : (
-            // Expanded Sidebar
-            <motion.div
-              key="expanded"
-              initial={{ opacity: 0, x: 20, scale: 0.95 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: 20, scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden"
-            >
-              {/* Header with minimize button */}
-              <div className="bg-gradient-to-r from-[var(--orange-500)] to-[var(--orange-600)] p-4 flex items-center justify-between">
-                <h3 className="text-lg font-bold text-white">Get a Quote</h3>
-                <button
-                  onClick={() => setIsSidebarExpanded(false)}
-                  className="text-white hover:bg-white/20 rounded-lg p-1 transition-colors duration-200"
-                  aria-label="Minimize sidebar"
-                >
-                  <ChevronRight size={20} />
-                </button>
-              </div>
-
-              {/* Content */}
-              <div className="p-5 w-64">
-                <p className="text-xs text-gray-600 mb-5">Get instant pricing for your logistics needs</p>
-                <div className="space-y-3">
-                  <a
-                    href="/contact"
-                    className="block w-full bg-[var(--orange-500)] hover:bg-[var(--orange-600)] text-white text-center py-2.5 px-3 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
-                  >
-                    Request Quote
-                  </a>
-                  <a
-                    href="https://wa.me/919901389430"
-                    className="flex items-center justify-center w-full bg-green-500 hover:bg-green-600 text-white py-2.5 px-3 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
-                  >
-                    <MessageCircle size={16} className="mr-2" />
-                    WhatsApp
-                  </a>
-                  <a
-                    href="tel:+919901389430"
-                    className="flex items-center justify-center w-full bg-[var(--navy-900)] hover:bg-[var(--navy-800)] text-white py-2.5 px-3 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
-                  >
-                    <Phone size={16} className="mr-2" />
-                    Call Us
-                  </a>
-                  <a
-                    href="mailto:slvcargomoverss@gmail.com"
-                    className="flex items-center justify-center w-full border-2 border-gray-300 hover:border-[var(--orange-500)] text-[var(--navy-900)] py-2.5 px-3 rounded-lg text-sm font-semibold transition-all duration-300"
-                  >
-                    <Mail size={16} className="mr-2" />
-                    Email
-                  </a>
-                </div>
-                <div className="mt-6 pt-6 border-t border-gray-200">
-                  <p className="text-xs text-gray-500 text-center">Available 9 AM - 6 PM</p>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
 
       {/* Main Services Grid */}
       <section className="py-20 bg-gray-50">
@@ -330,14 +253,6 @@ export default function Services() {
                     </ul>
                   </div>
 
-                  <Button 
-                    href="/contact" 
-                    variant="primary" 
-                    className="w-full text-base py-3 bg-[var(--orange-500)] hover:bg-[var(--orange-600)]"
-                  >
-                    Get Quote
-                    <ArrowRight className="ml-2 inline" size={16} />
-                  </Button>
                 </div>
               </motion.div>
             ))}
@@ -516,7 +431,7 @@ export default function Services() {
       </section>
 
       {/* CTA Section */}
-      <section id="quote" className="py-20 bg-gradient-to-br from-[var(--navy-900)] to-[var(--navy-800)] text-white">
+      <section className="py-20 bg-gradient-to-br from-[var(--navy-900)] to-[var(--navy-800)] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -544,8 +459,86 @@ export default function Services() {
         </div>
       </section>
 
+      {/* Collapsible Sticky Sidebar CTA - Mobile Optimized */}
+      <div ref={sidebarRef} className="fixed right-4 bottom-4 sm:bottom-auto sm:right-4 sm:top-1/2 sm:transform sm:-translate-y-1/2 z-[100]">
+        <AnimatePresence mode="wait">
+          {!isSidebarExpanded ? (
+            <motion.button
+              key="minimized"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              onClick={() => setIsSidebarExpanded(true)}
+              className="bg-[var(--orange-500)] hover:bg-[var(--orange-600)] active:bg-[var(--orange-600)] text-white rounded-full shadow-2xl p-4 transition-all duration-300 hover:shadow-3xl touch-manipulation w-14 h-14 sm:w-12 sm:h-12 flex items-center justify-center pointer-events-auto"
+              aria-label="Open quote sidebar"
+              style={{ zIndex: 100 }}
+            >
+              <MessageCircle size={24} className="sm:w-6 sm:h-6" />
+            </motion.button>
+          ) : (
+            <motion.div
+              key="expanded"
+              initial={{ opacity: 0, x: 20, scale: 0.95 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 20, scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden w-[calc(100vw-2rem)] sm:w-64 max-w-sm sm:max-w-none pointer-events-auto"
+              style={{ zIndex: 100 }}
+            >
+              <div className="bg-gradient-to-r from-[var(--orange-500)] to-[var(--orange-600)] p-4 flex items-center justify-between">
+                <h3 className="text-lg sm:text-lg font-bold text-white">Get a Quote</h3>
+                <button
+                  onClick={() => setIsSidebarExpanded(false)}
+                  className="text-white hover:bg-white/20 active:bg-white/30 rounded-lg p-2 transition-colors duration-200 touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
+                  aria-label="Minimize sidebar"
+                >
+                  <ChevronRight size={24} className="sm:w-5 sm:h-5" />
+                </button>
+              </div>
+              <div className="p-5 sm:p-5 w-full">
+                <p className="text-xs text-gray-600 mb-5">Get instant pricing for your logistics needs</p>
+                <div className="space-y-3">
+                  <a
+                    href="/contact"
+                    className="block w-full bg-[var(--orange-500)] hover:bg-[var(--orange-600)] active:bg-[var(--orange-600)] text-white text-center py-3 px-4 rounded-lg text-base sm:text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl touch-manipulation min-h-[48px] flex items-center justify-center"
+                  >
+                    Request Quote
+                  </a>
+                  <a
+                    href="https://wa.me/919901389430"
+                    className="flex items-center justify-center w-full bg-green-500 hover:bg-green-600 active:bg-green-600 text-white py-3 px-4 rounded-lg text-base sm:text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl touch-manipulation min-h-[48px]"
+                  >
+                    <MessageCircle size={18} className="mr-2 sm:w-4 sm:h-4" />
+                    WhatsApp
+                  </a>
+                  <a
+                    href="tel:+919901389430"
+                    className="flex items-center justify-center w-full bg-[var(--navy-900)] hover:bg-[var(--navy-800)] active:bg-[var(--navy-800)] text-white py-3 px-4 rounded-lg text-base sm:text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl touch-manipulation min-h-[48px]"
+                  >
+                    <Phone size={18} className="mr-2 sm:w-4 sm:h-4" />
+                    Call Us
+                  </a>
+                  <a
+                    href="mailto:slvcargomoverss@gmail.com"
+                    className="flex items-center justify-center w-full border-2 border-gray-300 hover:border-[var(--orange-500)] active:border-[var(--orange-500)] text-[var(--navy-900)] py-3 px-4 rounded-lg text-base sm:text-sm font-semibold transition-all duration-300 touch-manipulation min-h-[48px]"
+                  >
+                    <Mail size={18} className="mr-2 sm:w-4 sm:h-4" />
+                    Email
+                  </a>
+                </div>
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <p className="text-xs text-gray-500 text-center">Available 9 AM - 6 PM</p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
       <Footer />
-      <RippleBackground />
+      <Suspense fallback={null}>
+        <RippleBackground />
+      </Suspense>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -9,8 +9,10 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import ServiceCard from '../../components/ServiceCard';
 import Button from '../../components/Button';
-import RippleBackground from '../../components/RippleBackground';
 import { Cover } from '../../components/Cover';
+
+// Lazy load heavy components
+const RippleBackground = lazy(() => import('../../components/RippleBackground'));
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
@@ -75,6 +77,7 @@ export default function Home() {
     };
   }, [isSidebarExpanded]);
 
+
   const stats = [
     { value: 1000, label: "Successful Deliveries", suffix: "+" },
     { value: 50, label: "Cities Covered", suffix: "+" },
@@ -111,6 +114,7 @@ export default function Home() {
                 muted
                 playsInline
                 onEnded={handleVideoEnd}
+                preload="metadata"
                 className="w-full h-full object-contain"
               >
                 <source src="/intro-video.mp4" type="video/mp4" />
@@ -187,7 +191,7 @@ export default function Home() {
               </p>
 
               <div className="pt-1 sm:pt-6">
-                <Button href="#quote" variant="primary" className="text-[13px] sm:text-base px-6 py-3 sm:px-8 sm:py-4 bg-[var(--orange-500)] hover:bg-[var(--orange-600)] text-white rounded-lg">
+                <Button href="/contact" variant="primary" className="text-[13px] sm:text-base px-6 py-3 sm:px-8 sm:py-4 bg-[var(--orange-500)] hover:bg-[var(--orange-600)] text-white rounded-lg">
                   Request a Quote
                 </Button>
               </div>
@@ -230,7 +234,8 @@ export default function Home() {
                     width={400}
                     height={800}
                     className="w-[280px] sm:w-[360px] lg:w-[400px] xl:w-[440px] h-auto object-contain"
-          priority
+                    priority
+                    loading="eager"
                     sizes="(max-width: 640px) 280px, (max-width: 1024px) 360px, 440px"
                   />
                 </div>
@@ -264,17 +269,6 @@ export default function Home() {
             ))}
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-center mt-12"
-          >
-            <Button href="#quote" variant="primary" className="text-lg px-8 py-4 bg-[var(--orange-500)] hover:bg-[var(--orange-600)]">
-              Get Quote
-            </Button>
-          </motion.div>
         </div>
       </section>
 
@@ -350,26 +344,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Request Quote Section */}
-      <section id="quote" className="py-20 bg-[var(--navy-900)] text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Request a Quote</h2>
-            <p className="text-xl text-gray-300 mb-8">Share your shipment details and we will respond via email at slvcargomoverss@gmail.com.</p>
-            <Button href="/contact" variant="primary" className="text-base px-8 py-3 bg-[var(--orange-500)] hover:bg-[var(--orange-600)] text-white font-semibold rounded-xl">Open Full Form</Button>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Testimonials Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Clients Section */}
+          {/* Clients Section - Rotating Carousel */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -377,13 +356,24 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-[var(--navy-900)] mb-6">Trusted By</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 items-center">
-              {['Mahindra', 'Rivigo', 'Bosch', 'ABFRL'].map((name) => (
-                <div key={name} className="bg-white rounded-xl shadow p-6 text-center text-gray-700 font-semibold">
-                  {name}
-                </div>
-              ))}
+            <h2 className="text-3xl md:text-4xl font-bold text-[var(--navy-900)] mb-8">Trusted By</h2>
+            {/* Rotating Carousel */}
+            <div className="relative overflow-hidden py-4">
+              <div className="flex animate-scroll">
+                {/* Duplicate items multiple times for seamless infinite loop */}
+                {[...Array(3)].map((_, loopIndex) => (
+                  <div key={loopIndex} className="flex gap-6 shrink-0 px-2">
+                    {['Mahindra', 'Rivigo', 'Bosch', 'ABFRL'].map((name, index) => (
+                      <motion.div
+                        key={`${loopIndex}-${name}-${index}`}
+                        className="bg-white rounded-xl shadow-md hover:shadow-xl p-6 text-center text-gray-700 font-semibold min-w-[180px] sm:min-w-[220px] md:min-w-[250px] border border-gray-200 hover:border-[var(--orange-500)] transition-all duration-300 flex items-center justify-center"
+                      >
+                        {name}
+                      </motion.div>
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
           <motion.div
@@ -418,73 +408,70 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Collapsible Sticky Sidebar CTA */}
-      <div ref={sidebarRef} className="hidden lg:block fixed right-4 top-1/2 transform -translate-y-1/2 z-40">
+      {/* Collapsible Sticky Sidebar CTA - Mobile Optimized */}
+      <div ref={sidebarRef} className="fixed right-4 bottom-4 sm:bottom-auto sm:right-4 sm:top-1/2 sm:transform sm:-translate-y-1/2 z-[100]">
         <AnimatePresence mode="wait">
           {!isSidebarExpanded ? (
-            // Minimized Button
             <motion.button
               key="minimized"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               onClick={() => setIsSidebarExpanded(true)}
-              className="bg-[var(--orange-500)] hover:bg-[var(--orange-600)] text-white rounded-full shadow-2xl p-4 transition-all duration-300 hover:shadow-3xl"
+              className="bg-[var(--orange-500)] hover:bg-[var(--orange-600)] active:bg-[var(--orange-600)] text-white rounded-full shadow-2xl p-4 transition-all duration-300 hover:shadow-3xl touch-manipulation w-14 h-14 sm:w-12 sm:h-12 flex items-center justify-center pointer-events-auto"
               aria-label="Open quote sidebar"
+              style={{ zIndex: 100 }}
             >
-              <MessageCircle size={24} />
+              <MessageCircle size={24} className="sm:w-6 sm:h-6" />
             </motion.button>
           ) : (
-            // Expanded Sidebar
             <motion.div
               key="expanded"
               initial={{ opacity: 0, x: 20, scale: 0.95 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: 20, scale: 0.95 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden"
+              className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden w-[calc(100vw-2rem)] sm:w-64 max-w-sm sm:max-w-none pointer-events-auto"
+              style={{ zIndex: 100 }}
             >
-              {/* Header with minimize button */}
               <div className="bg-gradient-to-r from-[var(--orange-500)] to-[var(--orange-600)] p-4 flex items-center justify-between">
-                <h3 className="text-lg font-bold text-white">Get a Quote</h3>
+                <h3 className="text-lg sm:text-lg font-bold text-white">Get a Quote</h3>
                 <button
                   onClick={() => setIsSidebarExpanded(false)}
-                  className="text-white hover:bg-white/20 rounded-lg p-1 transition-colors duration-200"
+                  className="text-white hover:bg-white/20 active:bg-white/30 rounded-lg p-2 transition-colors duration-200 touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
                   aria-label="Minimize sidebar"
                 >
-                  <ChevronRight size={20} />
+                  <ChevronRight size={24} className="sm:w-5 sm:h-5" />
                 </button>
               </div>
-
-              {/* Content */}
-              <div className="p-5 w-64">
+              <div className="p-5 sm:p-5 w-full">
                 <p className="text-xs text-gray-600 mb-5">Get instant pricing for your logistics needs</p>
                 <div className="space-y-3">
                   <a
                     href="/contact"
-                    className="block w-full bg-[var(--orange-500)] hover:bg-[var(--orange-600)] text-white text-center py-2.5 px-3 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                    className="block w-full bg-[var(--orange-500)] hover:bg-[var(--orange-600)] active:bg-[var(--orange-600)] text-white text-center py-3 px-4 rounded-lg text-base sm:text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl touch-manipulation min-h-[48px] flex items-center justify-center"
                   >
                     Request Quote
                   </a>
                   <a
                     href="https://wa.me/919901389430"
-                    className="flex items-center justify-center w-full bg-green-500 hover:bg-green-600 text-white py-2.5 px-3 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                    className="flex items-center justify-center w-full bg-green-500 hover:bg-green-600 active:bg-green-600 text-white py-3 px-4 rounded-lg text-base sm:text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl touch-manipulation min-h-[48px]"
                   >
-                    <MessageCircle size={16} className="mr-2" />
+                    <MessageCircle size={18} className="mr-2 sm:w-4 sm:h-4" />
                     WhatsApp
                   </a>
                   <a
                     href="tel:+919901389430"
-                    className="flex items-center justify-center w-full bg-[var(--navy-900)] hover:bg-[var(--navy-800)] text-white py-2.5 px-3 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                    className="flex items-center justify-center w-full bg-[var(--navy-900)] hover:bg-[var(--navy-800)] active:bg-[var(--navy-800)] text-white py-3 px-4 rounded-lg text-base sm:text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl touch-manipulation min-h-[48px]"
                   >
-                    <Phone size={16} className="mr-2" />
+                    <Phone size={18} className="mr-2 sm:w-4 sm:h-4" />
                     Call Us
                   </a>
                   <a
                     href="mailto:slvcargomoverss@gmail.com"
-                    className="flex items-center justify-center w-full border-2 border-gray-300 hover:border-[var(--orange-500)] text-[var(--navy-900)] py-2.5 px-3 rounded-lg text-sm font-semibold transition-all duration-300"
+                    className="flex items-center justify-center w-full border-2 border-gray-300 hover:border-[var(--orange-500)] active:border-[var(--orange-500)] text-[var(--navy-900)] py-3 px-4 rounded-lg text-base sm:text-sm font-semibold transition-all duration-300 touch-manipulation min-h-[48px]"
                   >
-                    <Mail size={16} className="mr-2" />
+                    <Mail size={18} className="mr-2 sm:w-4 sm:h-4" />
                     Email
                   </a>
                 </div>
@@ -498,7 +485,9 @@ export default function Home() {
       </div>
 
       <Footer />
-      <RippleBackground />
+      <Suspense fallback={null}>
+        <RippleBackground />
+      </Suspense>
     </div>
   );
 }

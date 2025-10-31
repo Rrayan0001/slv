@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useEffect, useState } from 'react';
 
 export default function RippleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -12,8 +11,23 @@ export default function RippleBackground() {
     maxRadius: number;
     opacity: number;
   }>>([]);
+  const [isEnabled, setIsEnabled] = useState(false);
+  const animationFrameRef = useRef<number>();
 
   useEffect(() => {
+    // Disable on mobile devices for performance
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) return;
+
+    // Enable only after page load for better initial performance
+    const timer = setTimeout(() => setIsEnabled(true), 2000);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!isEnabled) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -29,28 +43,32 @@ export default function RippleBackground() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Create ripple on mouse move
+    // Create ripple on mouse move - reduced frequency
     const handleMouseMove = (e: MouseEvent) => {
-      // Only create ripples occasionally for performance
-      if (Math.random() > 0.95) {
+      // Only create ripples occasionally for performance (reduced frequency)
+      if (Math.random() > 0.98) {
         ripplesRef.current.push({
           x: e.clientX,
           y: e.clientY,
           radius: 0,
-          maxRadius: Math.random() * 150 + 100,
-          opacity: 0.6,
+          maxRadius: Math.random() * 100 + 80,
+          opacity: 0.5,
         });
       }
     };
 
-    // Animate ripples
+    // Animate ripples - limit concurrent ripples
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Update and draw ripples
+      // Update and draw ripples - limit to max 5 ripples
+      if (ripplesRef.current.length > 5) {
+        ripplesRef.current = ripplesRef.current.slice(-5);
+      }
+
       ripplesRef.current = ripplesRef.current.filter((ripple) => {
-        ripple.radius += 3;
-        ripple.opacity -= 0.015;
+        ripple.radius += 2;
+        ripple.opacity -= 0.02;
 
         if (ripple.opacity <= 0) {
           return false;
@@ -58,7 +76,7 @@ export default function RippleBackground() {
 
         // Draw ripple
         ctx.strokeStyle = `rgba(249, 115, 22, ${ripple.opacity})`;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
         ctx.stroke();
@@ -66,24 +84,29 @@ export default function RippleBackground() {
         return ripple.radius < ripple.maxRadius;
       });
 
-      requestAnimationFrame(animate);
+      animationFrameRef.current = requestAnimationFrame(animate);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     animate();
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', resizeCanvas);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
     };
-  }, []);
+  }, [isEnabled]);
+
+  if (!isEnabled) return null;
 
   return (
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
       style={{
-        opacity: 0.5,
+        opacity: 0.3,
         mixBlendMode: 'screen',
       }}
     />

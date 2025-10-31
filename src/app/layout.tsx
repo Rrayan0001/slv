@@ -7,6 +7,8 @@ const poppins = Poppins({
   variable: "--font-heading",
   subsets: ["latin"],
   display: "swap",
+  preload: true,
+  adjustFontFallback: true,
 });
 
 const montserrat = Montserrat({
@@ -14,6 +16,8 @@ const montserrat = Montserrat({
   variable: "--font-heading-alt",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
+  adjustFontFallback: true,
 });
 
 const openSans = Open_Sans({
@@ -21,6 +25,8 @@ const openSans = Open_Sans({
   variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {

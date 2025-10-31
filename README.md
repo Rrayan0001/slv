@@ -1,6 +1,6 @@
 # SLV Cargo Movers - Portfolio Website
 
-A modern, responsive portfolio website for SLV Cargo Movers, a logistics and cargo transportation company. Built with Next.js 15, TypeScript, Tailwind CSS, and Framer Motion.
+A modern, responsive portfolio website for S L V Cargo Movers and Packers, a logistics and cargo transportation company based in Bangalore, India. Built with Next.js 15, TypeScript, Tailwind CSS, and Framer Motion.
 
 ## Features
 
@@ -9,31 +9,33 @@ A modern, responsive portfolio website for SLV Cargo Movers, a logistics and car
 - **Fast Performance**: Built with Next.js 15 for optimal performance
 - **SEO Optimized**: Proper metadata and semantic HTML structure
 - **Interactive Components**: Smooth animations and transitions using Framer Motion
-- **Contact Form**: Functional contact form for quote requests
+- **Contact Form**: Functional contact form for quote requests integrated with Formspree
 - **Service Showcase**: Detailed service pages with pricing and features
+- **WhatsApp Integration**: Floating action button for quick contact
 
 ## Pages
 
-- **Home**: Hero section, services overview, company stats, and call-to-action
-- **About**: Company history, mission, vision, team, and core values
-- **Services**: Detailed service descriptions with pricing and features
-- **Contact**: Contact form, company information, and FAQ section
+- **Home**: Hero section, services overview, company stats, client testimonials, and call-to-action
+- **About**: Company history, mission, clients, team, and awards
+- **Services**: Detailed service descriptions with pricing, features, coverage area, and process
+- **Contact**: Contact form, company information, and office details
 
 ## Services Offered
 
-- **Air Freight**: Fast and reliable air cargo services
-- **Road Transport**: Comprehensive road transportation solutions
-- **Sea Freight**: Cost-effective sea freight services
-- **Warehousing**: Secure warehousing facilities with inventory management
+- **Logistics**: End-to-end logistics management with domestic, city-focused coverage
+- **Cargo Movers**: Safe, timely cargo movement with professional handling and tracking
+- **Packers**: Professional packing services using quality materials for secure transit
+- **End-to-End Delivery**: Complete door-to-door delivery service handling everything from pickup to final delivery
+- **Freight Movers**: Efficient freight moving services for commercial and industrial shipments
 
 ## Technology Stack
 
 - **Framework**: Next.js 15 with App Router
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS v4
+- **Styling**: Tailwind CSS
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
-- **Fonts**: Geist Sans and Geist Mono
+- **Fonts**: Poppins (headings), Montserrat (body), Open Sans (alternative)
 
 ## Getting Started
 
@@ -60,38 +62,51 @@ npm install
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Open [http://localhost:3000](http://localhost:3000) in your browser (or specified port)
 
 ## Project Structure
 
 ```
-src/
-├── app/
-│   ├── about/
-│   │   └── page.tsx
-│   ├── contact/
-│   │   └── page.tsx
-│   ├── services/
-│   │   └── page.tsx
-│   ├── globals.css
-│   ├── layout.tsx
-│   └── page.tsx
-├── components/
+slv-portfolio/
+├── components/           # Reusable React components
+│   ├── AnimatedCounter.tsx
 │   ├── Button.tsx
+│   ├── Cover.tsx
+│   ├── FloatingActionButton.tsx
 │   ├── Footer.tsx
 │   ├── Navbar.tsx
-│   └── ServiceCard.tsx
-└── types/
-    └── index.ts
+│   ├── RippleBackground.tsx
+│   ├── ScrollProgress.tsx
+│   ├── ServiceCard.tsx
+│   └── TestimonialsCarousel.tsx
+├── public/               # Static assets
+│   ├── 1.png            # Company logo
+│   ├── final.png        # Hero section image
+│   ├── favicon2.jpeg    # Favicon
+│   ├── intro-video.mp4  # Intro video
+│   └── logofinalfinal.png
+├── src/
+│   └── app/
+│       ├── about/       # About page
+│       ├── contact/     # Contact page
+│       ├── services/    # Services page
+│       ├── globals.css  # Global styles and CSS variables
+│       ├── layout.tsx   # Root layout with metadata
+│       └── page.tsx     # Home page
+├── types/               # TypeScript type definitions
+│   └── index.ts
+├── next.config.ts       # Next.js configuration
+├── tsconfig.json        # TypeScript configuration
+└── package.json         # Dependencies and scripts
 ```
 
 ## Customization
 
 ### Colors
-The website uses a custom color scheme defined in `globals.css`:
-- Primary Orange: `#f97316` (orange-500)
-- Dark Orange: `#ea580c` (orange-600)
-- Navy Blue: `#1e293b` (navy-900)
+The website uses a custom color scheme defined in `src/app/globals.css`:
+- Primary Orange: `#FF7A00` (orange-500)
+- Dark Orange: `#EA580C` (orange-600)
+- Navy Blue: `#001F3F` (navy-900)
 - Light Navy: `#334155` (navy-800)
 
 ### Content
@@ -99,6 +114,16 @@ The website uses a custom color scheme defined in `globals.css`:
 - Modify service details in the services page
 - Customize contact information in the contact page
 - Update team member information in the about page
+- Edit client testimonials in the home page
+
+## Company Information
+
+- **Company Name**: S L V Cargo Movers and Packers
+- **Address**: SAHAKARNAGAR, BANGALORE-560092
+- **Phone**: +91 9901389430
+- **Email**: slvcargomoverss@gmail.com
+- **Website**: www.slvcargo.in
+- **Working Hours**: 9 AM to 6 PM (Office Hours)
 
 ## Deployment
 
@@ -141,5 +166,5 @@ This project is licensed under the MIT License.
 ## Support
 
 For support or questions, please contact:
-- Email: info@slvcargo.com
-- Phone: +91 98765 43210
+- Email: slvcargomoverss@gmail.com
+- Phone: +91 9901389430

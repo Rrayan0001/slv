@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Target, Users, Award, TrendingUp, CheckCircle, Truck } from 'lucide-react';
 import Navbar from '../../../components/Navbar';
@@ -11,12 +10,11 @@ import RippleBackground from '../../../components/RippleBackground';
 
 export default function About() {
   const milestones = [
-    { year: '2019', title: 'Company Founded', description: 'Started with a vision to revolutionize logistics in India' },
-    { year: '2020', title: 'First 1000 Shipments', description: 'Achieved our first milestone with excellent customer satisfaction' },
-    { year: '2021', title: 'Fleet Expansion', description: 'Added 50+ vehicles to our growing fleet' },
-    { year: '2022', title: 'ISO Certification', description: 'Received ISO 9001:2015 certification for quality management' },
-    { year: '2023', title: 'Digital Platform', description: 'Launched our digital tracking and booking platform' },
-    { year: '2024', title: '50+ Cities', description: 'Expanded our network to cover 50+ cities across India' }
+    { year: '2005', title: 'Company Founded', description: 'S L V Cargo Movers and Packers started operations with a vision to provide reliable logistics solutions' },
+    { year: '2010', title: 'First Major Client', description: 'Partnership with leading logistics companies began our journey of excellence' },
+    { year: '2015', title: 'Excellence Award', description: 'Received excellence awards from our working companies recognizing our commitment to quality' },
+    { year: '2020', title: 'Key Clients Partnership', description: 'Serving major clients including Mahindra Logistics, Rivigo, Bosch, and FSL' },
+    { year: '2024', title: 'ABFRL Project', description: 'Currently working on ABFRL Project, continuing our legacy of excellence' }
   ];
 
   const values = [
@@ -37,45 +35,34 @@ export default function About() {
     },
     {
       icon: TrendingUp,
-      title: 'Innovation',
-      description: 'We embrace technology and innovation to provide better logistics solutions.'
+      title: 'Experience',
+      description: 'With 18+ years of experience, we bring expertise to every logistics challenge.'
     }
   ];
 
   const team = [
     {
-      name: 'Rajesh Kumar',
-      role: 'CEO & Founder',
-      experience: '15+ years in logistics',
-      image: '/api/placeholder/300/300'
-    },
-    {
-      name: 'Priya Sharma',
-      role: 'Operations Director',
-      experience: '12+ years in supply chain',
-      image: '/api/placeholder/300/300'
-    },
-    {
-      name: 'Amit Patel',
-      role: 'Technology Head',
-      experience: '10+ years in logistics tech',
-      image: '/api/placeholder/300/300'
-    },
-    {
-      name: 'Sunita Reddy',
-      role: 'Customer Relations',
-      experience: '8+ years in customer service',
-      image: '/api/placeholder/300/300'
+      name: 'MANJUNATH M',
+      role: 'Proprietor',
+      experience: 'Leading the company since 2005'
     }
   ];
 
   const achievements = [
-    'ISO 9001:2015 Certified',
-    '99% Customer Satisfaction Rate',
-    '1000+ Successful Deliveries',
-    '50+ Cities Coverage',
-    '24/7 Customer Support',
-    'Real-time Tracking System'
+    'Excellence Award Recipient',
+    '18+ Years of Experience',
+    'Serving Major Corporate Clients',
+    'Domestic Coverage Focus',
+    'End-to-End Delivery Services',
+    'Professional Packers & Movers'
+  ];
+
+  const keyClients = [
+    'Mahindra Logistics',
+    'Rivigo',
+    'Bosch',
+    'FSL',
+    'ABFRL Project'
   ];
 
   return (
@@ -83,7 +70,7 @@ export default function About() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="pt-20 pb-16 sm:pt-24 sm:pb-20 bg-gradient-to-br from-navy-900 to-navy-800 text-white">
+      <section className="pt-32 pb-16 sm:pt-40 sm:pb-20 bg-gradient-to-br from-navy-900 to-navy-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -92,10 +79,10 @@ export default function About() {
             className="text-center"
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              About <span className="text-orange-500">SLV Cargo Movers</span>
+              About <span className="text-orange-500">S L V Cargo Movers and Packers</span>
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Your trusted logistics partner since 2019, delivering excellence in cargo solutions 
+              Your trusted logistics partner since 2005, delivering excellence in cargo solutions 
               across India with innovation, reliability, and customer-centric approach.
             </p>
           </motion.div>
@@ -114,15 +101,17 @@ export default function About() {
             >
               <h2 className="text-4xl font-bold text-navy-900 mb-6">Our Mission</h2>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                To revolutionize logistics in India by providing reliable, efficient, and cost-effective 
-                cargo solutions that enable businesses to grow and succeed. We strive to be the most 
-                trusted logistics partner by delivering exceptional service and innovative solutions.
+                Since 2005, S L V Cargo Movers and Packers has been committed to providing reliable, 
+                efficient, and cost-effective logistics solutions. We have served prestigious clients 
+                including Mahindra Logistics, Rivigo, Bosch, FSL, and are currently working on ABFRL Project. 
+                Our excellence awards from working companies reflect our dedication to quality service.
               </p>
-              <h2 className="text-4xl font-bold text-navy-900 mb-6">Our Vision</h2>
+              <h2 className="text-4xl font-bold text-navy-900 mb-6">Our Story</h2>
               <p className="text-lg text-gray-600 leading-relaxed">
-                To become India's leading logistics company by 2030, known for our technological 
-                innovation, operational excellence, and unwavering commitment to customer satisfaction. 
-                We envision a future where logistics is seamless, transparent, and accessible to all.
+                With 18+ years of experience in logistics, freight moving, and packing services, 
+                we have established ourselves as a trusted partner for end-to-end delivery solutions. 
+                Our focus on domestic coverage, particularly in cities, has enabled us to serve businesses 
+                across India with reliability and professionalism.
               </p>
             </motion.div>
 
@@ -156,8 +145,44 @@ export default function About() {
         </div>
       </section>
 
-      {/* Company Timeline */}
+      {/* Key Clients */}
       <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-navy-900 mb-6">
+              Our Key Clients
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Trusted by leading companies across industries for our reliable logistics solutions.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            {keyClients.map((client, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300 text-center"
+              >
+                <Award size={40} className="text-orange-500 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-navy-900">{client}</h3>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Company Timeline */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -170,7 +195,7 @@ export default function About() {
               Our Journey
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From a small startup to a trusted logistics partner, here's our story of growth and success.
+              From a trusted startup in 2005 to a recognized logistics partner, here's our story of growth and success.
             </p>
           </motion.div>
 
@@ -205,7 +230,7 @@ export default function About() {
       </section>
 
       {/* Values */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -244,7 +269,7 @@ export default function About() {
       </section>
 
       {/* Team */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -254,14 +279,14 @@ export default function About() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-navy-900 mb-6">
-              Meet Our Team
+              Our Team
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The passionate professionals behind SLV Cargo Movers' success.
+              The passionate professionals behind S L V Cargo Movers and Packers' success.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-4xl mx-auto">
             {team.map((member, index) => (
               <motion.div
                 key={index}
@@ -298,7 +323,7 @@ export default function About() {
               Ready to Work With Us?
             </h2>
             <p className="text-xl text-gray-300 mb-8">
-              Join thousands of satisfied customers who trust SLV Cargo Movers for their logistics needs.
+              Join thousands of satisfied customers who trust S L V Cargo Movers and Packers for their logistics needs.
             </p>
             <Button href="/contact" variant="primary" className="text-lg px-8 py-4">
               Get Started Today

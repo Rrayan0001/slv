@@ -1,29 +1,42 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins, Montserrat, Open_Sans } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-heading",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const montserrat = Montserrat({
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-heading-alt",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const openSans = Open_Sans({
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-body",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "SLV Cargo Movers - Reliable Logistics Solutions",
-  description: "Professional logistics and cargo moving services. Air freight, road transport, sea freight, and warehousing solutions across India.",
+  title: "S L V Cargo Movers and Packers | Reliable Logistics Partner",
+  description: "Providing logistics, freight, and end-to-end delivery services since 2005. Trusted by major clients across India.",
+  keywords: "cargo movers Bangalore, packers movers India, logistics company, SLV Cargo, freight delivery Bangalore",
   icons: {
     icon: [
-      { url: "/slvlogo1.png", sizes: "32x32", type: "image/png" },
-      { url: "/slvlogo1.png", sizes: "16x16", type: "image/png" }
+      { url: "/favicon2.jpeg", sizes: "any" },
+      { url: "/favicon2.jpeg", sizes: "32x32", type: "image/jpeg" },
+      { url: "/favicon2.jpeg", sizes: "16x16", type: "image/jpeg" }
     ],
     apple: [
-      { url: "/slvlogo1.png", sizes: "180x180", type: "image/png" }
+      { url: "/favicon2.jpeg", sizes: "180x180", type: "image/jpeg" }
     ],
-    shortcut: "/slvlogo1.png"
+    shortcut: "/favicon2.jpeg"
   }
 };
 
@@ -43,7 +56,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="overflow-x-hidden">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden w-full`}
+        className={`${poppins.variable} ${montserrat.variable} ${openSans.variable} antialiased overflow-x-hidden w-full`}
       >
         {children}
       </body>

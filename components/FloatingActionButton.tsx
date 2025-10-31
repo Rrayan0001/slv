@@ -24,20 +24,20 @@ export default function FloatingActionButton() {
     {
       icon: Phone,
       label: 'Call Now',
-      href: 'tel:+919876543210',
+      href: 'tel:+919901389430',
       color: 'bg-green-500 hover:bg-green-600'
     },
     {
       icon: Mail,
       label: 'Email Us',
-      href: 'mailto:info@slvcargo.com',
+      href: 'mailto:slvcargomoverss@gmail.com',
       color: 'bg-blue-500 hover:bg-blue-600'
     },
     {
       icon: MessageCircle,
       label: 'WhatsApp',
-      href: 'https://wa.me/919876543210',
-      color: 'bg-green-600 hover:bg-green-700'
+      href: 'https://wa.me/919901389430',
+      color: 'bg-[var(--orange-500)] hover:bg-[var(--orange-600)]'
     }
   ];
 
@@ -51,7 +51,7 @@ export default function FloatingActionButton() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0 }}
             onClick={scrollToTop}
-            className="mb-3 sm:mb-4 w-12 h-12 bg-navy-900 hover:bg-navy-800 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl touch-manipulation"
+            className="mb-3 sm:mb-4 w-12 h-12 bg-[var(--navy-900)] hover:bg-[var(--navy-800)] text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl touch-manipulation"
           >
             <ArrowUp size={20} />
           </motion.button>
@@ -63,7 +63,7 @@ export default function FloatingActionButton() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 sm:w-16 sm:h-16 bg-orange-500 hover:bg-orange-600 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl touch-manipulation"
+        className="w-14 h-14 sm:w-16 sm:h-16 bg-[var(--orange-500)] hover:bg-[var(--orange-600)] text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl touch-manipulation"
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -98,7 +98,7 @@ export default function FloatingActionButton() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-20 right-0 space-y-3"
+            className="absolute bottom-20 right-0 space-y-3 flex flex-col items-end"
           >
             {actionButtons.map((button, index) => (
               <motion.a
@@ -109,7 +109,7 @@ export default function FloatingActionButton() {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`flex items-center space-x-3 ${button.color} text-white px-4 py-3 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl`}
+                className={`flex items-center space-x-2 ${button.color} text-white px-3 py-2 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl min-w-[120px] justify-center whitespace-nowrap`}
               >
                 <button.icon size={18} />
                 <span className="text-sm font-medium">{button.label}</span>

@@ -4,22 +4,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, CheckCircle, Truck, Plane, Ship, Users, Award, Clock, Play, X } from 'lucide-react';
+import { ArrowRight, CheckCircle, Truck, Users, Award, Clock, Play, X, MessageCircle, Phone, Mail, ChevronRight } from 'lucide-react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import ServiceCard from '../../components/ServiceCard';
 import Button from '../../components/Button';
-import ScrollProgress from '../../components/ScrollProgress';
-import FloatingActionButton from '../../components/FloatingActionButton';
-import AnimatedCounter from '../../components/AnimatedCounter';
-import TestimonialsCarousel from '../../components/TestimonialsCarousel';
 import RippleBackground from '../../components/RippleBackground';
 import { Cover } from '../../components/Cover';
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
   const [hasVisited, setHasVisited] = useState(false);
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Check if user has already seen the intro in this session
@@ -55,33 +53,32 @@ export default function Home() {
   const handleVideoEnd = () => {
     handleSkipIntro();
   };
-  const services = [
-    {
-      title: "Air Freight",
-      description: "Fast and reliable air cargo services for time-sensitive shipments across domestic and international routes.",
-      icon: "plane"
-    },
-    {
-      title: "Road Transport",
-      description: "Comprehensive road transportation solutions with our modern fleet ensuring safe and timely delivery.",
-      icon: "truck"
-    },
-    {
-      title: "Sea Freight",
-      description: "Cost-effective sea freight services for large volume shipments with global shipping network.",
-      icon: "ship"
-    },
-    {
-      title: "Warehousing",
-      description: "Secure warehousing facilities with advanced inventory management and distribution services.",
-      icon: "warehouse"
+
+  // Close sidebar when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isSidebarExpanded &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node)
+      ) {
+        setIsSidebarExpanded(false);
+      }
+    };
+
+    if (isSidebarExpanded) {
+      document.addEventListener('mousedown', handleClickOutside);
     }
-  ];
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isSidebarExpanded]);
 
   const stats = [
     { value: 1000, label: "Successful Deliveries", suffix: "+" },
     { value: 50, label: "Cities Covered", suffix: "+" },
-    { value: 5, label: "Years Experience", suffix: "+" },
+    { value: 18, label: "Years Experience", suffix: "+" },
     { value: 99, label: "Customer Satisfaction", suffix: "%" }
   ];
 
@@ -157,9 +154,14 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative pt-20 pb-4 sm:pt-24 sm:pb-20 bg-white overflow-hidden flex items-start sm:items-center w-full">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-4 sm:py-0 box-border">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start sm:items-center">
+      <section id="home" className="relative pt-28 pb-8 sm:pt-32 sm:pb-24 bg-white overflow-hidden w-full">
+        {/* Background image overlay */}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 bg-[url('/final.png')] bg-cover bg-center opacity-10"
+        />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8 sm:py-12 box-border">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-4 lg:gap-2 items-start lg:items-center">
             {/* Left Content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -167,7 +169,7 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="space-y-3 sm:space-y-6 lg:space-y-8"
             >
-              <h1 className="text-[28px] leading-[1.15] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900">
+              <h1 className="font-bold text-[28px] leading-[1.15] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-[var(--navy-900)]">
                 <Cover>Fast & Reliable</Cover>
                 <span className="block">Logistics Solutions</span>
               </h1>
@@ -178,17 +180,15 @@ export default function Home() {
               </p>
 
               <p className="text-[12px] sm:text-sm md:text-base lg:text-lg text-gray-600 leading-[1.5]">
-                With over 5 years of experience in logistics, SLV Cargo Movers provides comprehensive 
-                transportation solutions. Whether you need same-day delivery or international shipping, 
+                Since 2005, S L V Cargo Movers and Packers has been serving clients including Mahindra Logistics, 
+                Rivigo, Bosch, FSL, and currently working on ABFRL Project. We have received excellence awards 
+                from our working companies. Whether you need same-day delivery or domestic shipping, 
                 our expert team ensures your cargo reaches its destination safely and on time.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 lg:gap-4 pt-1 sm:pt-4">
-                <Button href="/contact" variant="primary" className="text-[13px] sm:text-base px-6 py-2.5 sm:px-8 sm:py-4 bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white touch-manipulation w-full sm:w-auto rounded-lg">
-                  Get a free quote
-                </Button>
-                <Button href="/services" variant="outline" className="text-[13px] sm:text-base px-6 py-2.5 sm:px-8 sm:py-4 border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white active:bg-gray-800 touch-manipulation w-full sm:w-auto rounded-lg">
-                  See our packages
+              <div className="pt-1 sm:pt-6">
+                <Button href="#quote" variant="primary" className="text-[13px] sm:text-base px-6 py-3 sm:px-8 sm:py-4 bg-[var(--orange-500)] hover:bg-[var(--orange-600)] text-white rounded-lg">
+                  Request a Quote
                 </Button>
               </div>
 
@@ -207,10 +207,10 @@ export default function Home() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative flex justify-center lg:justify-end -mb-4"
+              className="relative flex justify-center lg:justify-end items-center lg:items-start pt-8 lg:pt-0"
             >
               <motion.div
-                className="relative w-full max-w-[100px] sm:max-w-[190px] lg:max-w-[190px] xl:max-w-[230px] perspective"
+                className="relative max-w-[280px] sm:max-w-[360px] lg:max-w-[400px] xl:max-w-[440px] perspective"
                 whileHover={{
                   rotateX: -8,
                   rotateY: 8,
@@ -227,11 +227,11 @@ export default function Home() {
         <Image
                     src="/final.png"
                     alt="SLV Logistics on Mobile"
-                    width={700}
-                    height={1400}
-                    className="w-full h-auto object-contain"
+                    width={400}
+                    height={800}
+                    className="w-[280px] sm:w-[360px] lg:w-[400px] xl:w-[440px] h-auto object-contain"
           priority
-                    sizes="(max-width: 640px) 240px, (max-width: 1024px) 50vw, 40vw"
+                    sizes="(max-width: 640px) 280px, (max-width: 1024px) 360px, 440px"
                   />
                 </div>
               </motion.div>
@@ -241,7 +241,7 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-gray-50">
+      <section id="services" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -250,24 +250,17 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-navy-900 mb-6">
-              Our Services
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Comprehensive logistics solutions tailored to meet your business needs 
-              with reliability, speed, and cost-effectiveness.
-            </p>
+            <h2 className="text-4xl md:text-5xl font-bold text-[var(--navy-900)] mb-6">Our Services</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Three core offerings built for speed and reliability.</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, index) => (
-              <ServiceCard
-                key={index}
-                title={service.title}
-                description={service.description}
-                icon={service.icon}
-                delay={index * 0.1}
-              />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { title: 'Logistics', description: 'End-to-end logistics management with domestic, city-focused coverage.', icon: 'truck' },
+              { title: 'Cargo Movers', description: 'Safe, timely cargo movement with professional handling and tracking.', icon: 'truck' },
+              { title: 'Packers', description: 'Professional packing using quality materials for secure transit.', icon: 'warehouse' },
+            ].map((s, index) => (
+              <ServiceCard key={index} title={s.title} description={s.description} icon={s.icon} delay={index * 0.1} />
             ))}
           </div>
 
@@ -278,15 +271,15 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-center mt-12"
           >
-            <Button href="/services" variant="primary" className="text-lg px-8 py-4">
-              View All Services
+            <Button href="#quote" variant="primary" className="text-lg px-8 py-4 bg-[var(--orange-500)] hover:bg-[var(--orange-600)]">
+              Get Quote
             </Button>
           </motion.div>
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-20 bg-white">
+      {/* About Section */}
+      <section id="about" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -295,13 +288,8 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-4xl md:text-5xl font-bold text-navy-900 mb-6">
-                Why Choose SLV Cargo Movers?
-              </h2>
-              <p className="text-xl text-gray-600 mb-8">
-                We combine years of experience with cutting-edge technology to provide 
-                unmatched logistics solutions that drive your business forward.
-              </p>
+              <h2 className="text-4xl md:text-5xl font-bold text-[var(--navy-900)] mb-6">About S L V Cargo Movers and Packers</h2>
+              <p className="text-xl text-gray-600 mb-8">Founded in 2005, we are trusted by leading brands including Mahindra Logistics, Rivigo, Bosch, FSL, and are currently working on the ABFRL Project. We have received excellence awards from our partner companies.</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {features.map((feature, index) => (
                   <motion.div
@@ -326,15 +314,15 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative"
             >
-              <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-8 text-white">
+              <div className="bg-gradient-to-br from-[var(--navy-900)] to-[var(--navy-800)] rounded-2xl p-8 text-white">
                 <div className="space-y-6">
                   <div className="flex items-center space-x-4">
                     <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
                       <Truck size={24} />
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold">Fast Delivery</h3>
-                      <p className="text-orange-100">Same day and next day delivery options</p>
+                      <h3 className="text-xl font-semibold">Experience</h3>
+                      <p className="text-white/70">18+ years delivering reliable logistics solutions</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
@@ -342,8 +330,8 @@ export default function Home() {
                       <Award size={24} />
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold">Quality Assured</h3>
-                      <p className="text-orange-100">ISO certified processes and procedures</p>
+                      <h3 className="text-xl font-semibold">Trusted by Leaders</h3>
+                      <p className="text-white/70">Mahindra, Rivigo, Bosch, FSL, ABFRL</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
@@ -351,8 +339,8 @@ export default function Home() {
                       <Users size={24} />
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold">Expert Team</h3>
-                      <p className="text-orange-100">Experienced professionals at your service</p>
+                      <h3 className="text-xl font-semibold">Awarded Excellence</h3>
+                      <p className="text-white/70">Recognized for dependable, quality service</p>
                     </div>
                   </div>
                 </div>
@@ -362,8 +350,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-navy-900 text-white">
+      {/* Request Quote Section */}
+      <section id="quote" className="py-20 bg-[var(--navy-900)] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -371,21 +359,9 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Ready to Ship?
-            </h2>
-            <p className="text-xl text-gray-300 mb-8">
-              Get a free quote today and experience the difference of working with 
-              India's most reliable logistics partner.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/contact" variant="primary" className="text-base px-8 py-3 bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300">
-                Get Free Quote
-              </Button>
-              <Button href="tel:+919876543210" variant="outline" className="text-base px-8 py-3 border-2 border-white text-white hover:bg-white/10 hover:border-white active:bg-white/20 font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300">
-                Call Now
-              </Button>
-            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Request a Quote</h2>
+            <p className="text-xl text-gray-300 mb-8">Share your shipment details and we will respond via email at slvcargomoverss@gmail.com.</p>
+            <Button href="/contact" variant="primary" className="text-base px-8 py-3 bg-[var(--orange-500)] hover:bg-[var(--orange-600)] text-white font-semibold rounded-xl">Open Full Form</Button>
           </motion.div>
         </div>
       </section>
@@ -393,6 +369,23 @@ export default function Home() {
       {/* Testimonials Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Clients Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-[var(--navy-900)] mb-6">Trusted By</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 items-center">
+              {['Mahindra', 'Rivigo', 'Bosch', 'ABFRL'].map((name) => (
+                <div key={name} className="bg-white rounded-xl shadow p-6 text-center text-gray-700 font-semibold">
+                  {name}
+                </div>
+              ))}
+            </div>
+          </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -408,12 +401,103 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <TestimonialsCarousel />
+          {/* Simple static testimonials to align with clean design */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[ 
+              { name: 'Mahindra Logistics', text: 'Reliable and timely service across city routes.' },
+              { name: 'Bosch', text: 'Professional team and excellent handling of goods.' },
+              { name: 'ABFRL', text: 'End-to-end delivery with great communication.' }
+            ].map((t, i) => (
+              <div key={i} className="bg-white rounded-xl shadow p-6 text-left">
+                <div className="text-yellow-400 mb-3">{'⭐'.repeat(5)}</div>
+                <p className="text-gray-700 mb-4">{t.text}</p>
+                <div className="text-sm font-semibold text-[var(--navy-900)]">{t.name}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
+      {/* Collapsible Sticky Sidebar CTA */}
+      <div ref={sidebarRef} className="hidden lg:block fixed right-4 top-1/2 transform -translate-y-1/2 z-40">
+        <AnimatePresence mode="wait">
+          {!isSidebarExpanded ? (
+            // Minimized Button
+            <motion.button
+              key="minimized"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              onClick={() => setIsSidebarExpanded(true)}
+              className="bg-[var(--orange-500)] hover:bg-[var(--orange-600)] text-white rounded-full shadow-2xl p-4 transition-all duration-300 hover:shadow-3xl"
+              aria-label="Open quote sidebar"
+            >
+              <MessageCircle size={24} />
+            </motion.button>
+          ) : (
+            // Expanded Sidebar
+            <motion.div
+              key="expanded"
+              initial={{ opacity: 0, x: 20, scale: 0.95 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 20, scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden"
+            >
+              {/* Header with minimize button */}
+              <div className="bg-gradient-to-r from-[var(--orange-500)] to-[var(--orange-600)] p-4 flex items-center justify-between">
+                <h3 className="text-lg font-bold text-white">Get a Quote</h3>
+                <button
+                  onClick={() => setIsSidebarExpanded(false)}
+                  className="text-white hover:bg-white/20 rounded-lg p-1 transition-colors duration-200"
+                  aria-label="Minimize sidebar"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+
+              {/* Content */}
+              <div className="p-5 w-64">
+                <p className="text-xs text-gray-600 mb-5">Get instant pricing for your logistics needs</p>
+                <div className="space-y-3">
+                  <a
+                    href="/contact"
+                    className="block w-full bg-[var(--orange-500)] hover:bg-[var(--orange-600)] text-white text-center py-2.5 px-3 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    Request Quote
+                  </a>
+                  <a
+                    href="https://wa.me/919901389430"
+                    className="flex items-center justify-center w-full bg-green-500 hover:bg-green-600 text-white py-2.5 px-3 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    <MessageCircle size={16} className="mr-2" />
+                    WhatsApp
+                  </a>
+                  <a
+                    href="tel:+919901389430"
+                    className="flex items-center justify-center w-full bg-[var(--navy-900)] hover:bg-[var(--navy-800)] text-white py-2.5 px-3 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    <Phone size={16} className="mr-2" />
+                    Call Us
+                  </a>
+                  <a
+                    href="mailto:slvcargomoverss@gmail.com"
+                    className="flex items-center justify-center w-full border-2 border-gray-300 hover:border-[var(--orange-500)] text-[var(--navy-900)] py-2.5 px-3 rounded-lg text-sm font-semibold transition-all duration-300"
+                  >
+                    <Mail size={16} className="mr-2" />
+                    Email
+                  </a>
+                </div>
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <p className="text-xs text-gray-500 text-center">Available 9 AM - 6 PM</p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
       <Footer />
-      <FloatingActionButton />
       <RippleBackground />
     </div>
   );

@@ -12,7 +12,7 @@ export default function RippleBackground() {
     opacity: number;
   }>>([]);
   const [isEnabled, setIsEnabled] = useState(false);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     // Disable on mobile devices for performance

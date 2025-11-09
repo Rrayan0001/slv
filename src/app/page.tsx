@@ -10,6 +10,7 @@ import Footer from '../../components/Footer';
 import ServiceCard from '../../components/ServiceCard';
 import Button from '../../components/Button';
 import { Cover } from '../../components/Cover';
+import TruckTransition from '../../components/TruckTransition';
 
 // Lazy load heavy components
 const RippleBackground = lazy(() => import('../../components/RippleBackground'));
@@ -18,8 +19,11 @@ export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
   const [hasVisited, setHasVisited] = useState(false);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+  const [activeSection, setActiveSection] = useState(1);
+  const [scrollDirection, setScrollDirection] = useState<'down' | 'up'>('down');
   const videoRef = useRef<HTMLVideoElement>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     // Check if user has already seen the intro in this session
@@ -76,6 +80,55 @@ export default function Home() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isSidebarExpanded]);
+
+  // Section detection and scroll direction tracking
+  useEffect(() => {
+    if (showIntro) return; // Don't track sections during intro
+
+    const sections = ['section1', 'section2', 'section3', 'section4'];
+    const observers: IntersectionObserver[] = [];
+
+    // Track scroll direction
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY.current) {
+        setScrollDirection('down');
+      } else if (currentScrollY < lastScrollY.current) {
+        setScrollDirection('up');
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    sections.forEach((sectionId, index) => {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const sectionNumber = index + 1;
+              setActiveSection(sectionNumber);
+            }
+          });
+        },
+        {
+          threshold: 0.5, // Trigger when 50% of section is visible
+          rootMargin: '-10% 0px -10% 0px', // More precise detection
+        }
+      );
+
+      observer.observe(section);
+      observers.push(observer);
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observers.forEach((observer) => observer.disconnect());
+    };
+  }, [showIntro]);
 
 
   const stats = [
@@ -157,8 +210,11 @@ export default function Home() {
 
       <Navbar />
       
-      {/* Hero Section */}
-      <section id="home" className="relative pt-28 pb-8 sm:pt-32 sm:pb-24 bg-white overflow-hidden w-full">
+      {/* Truck Transition Animation */}
+      {!showIntro && <TruckTransition activeSection={activeSection} scrollDirection={scrollDirection} />}
+      
+      {/* Section 1 - Hero */}
+      <section id="section1" className="relative min-h-screen pt-28 pb-8 sm:pt-32 sm:pb-24 bg-white overflow-hidden w-full flex items-center">
         {/* Background image overlay */}
         <div
           aria-hidden
@@ -245,8 +301,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="py-20 bg-gray-50">
+      {/* Section 2 - Services */}
+      <section id="section2" className="min-h-screen py-20 bg-gray-50 flex items-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -272,8 +328,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 bg-white">
+      {/* Section 3 - About */}
+      <section id="section3" className="min-h-screen py-20 bg-white flex items-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -345,8 +401,8 @@ export default function Home() {
       </section>
 
 
-      {/* Testimonials Section */}
-      <section className="py-20 bg-gray-50">
+      {/* Section 4 - Testimonials */}
+      <section id="section4" className="min-h-screen py-20 bg-gray-50 flex items-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Clients Section - Rotating Carousel */}
           <motion.div
